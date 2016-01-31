@@ -68,7 +68,7 @@ public class ServerRequests {
         protected Void doInBackground(Void... params) {
             ArrayList<NameValuePair> datatoSend = new ArrayList<>();
 
-            datatoSend.add(new BasicNameValuePair("name", phoneNumber));
+            datatoSend.add(new BasicNameValuePair("phoneNumber", phoneNumber));
             datatoSend.add(new BasicNameValuePair("gcm", key));
 
             HttpParams httpRequestParams = new BasicHttpParams();

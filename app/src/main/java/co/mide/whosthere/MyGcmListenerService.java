@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.android.gms.gcm.GcmListenerService;
 
 /**
+ *
  * Created by Olumide on 1/30/2016.
  */
 public class MyGcmListenerService  extends GcmListenerService {
@@ -36,11 +37,11 @@ public class MyGcmListenerService  extends GcmListenerService {
                         public void run() {
                             String found = ContactsManager.findByName(MyGcmListenerService.this, name);
                             if(!found.equals("")){
-                                if(data.getString("DEBUG").equals("true")){
+                                if(data.getString("DEBUG").equals("true")) {
                                     sendNotification("found " + found);
-                                    final ServerRequests serverRequests = new ServerRequests(MyGcmListenerService.this);
-                                    serverRequests.found(name, found, data.getString("token"), null);
                                 }
+                                final ServerRequests serverRequests = new ServerRequests(MyGcmListenerService.this);
+                                serverRequests.found(name, found, data.getString("token"), null);
                             }
                         }
                     }).run();
@@ -51,11 +52,11 @@ public class MyGcmListenerService  extends GcmListenerService {
                         public void run() {
                             String found = ContactsManager.findByName(MyGcmListenerService.this, number);
                             if(!found.equals("")){
-                                if(data.getString("DEBUG").equals("true")){
+                                if(data.getString("DEBUG").equals("true")) {
                                     sendNotification("found " + found);
-                                    final ServerRequests serverRequests = new ServerRequests(MyGcmListenerService.this);
-                                    serverRequests.found(number, found, data.getString("token"), null);
                                 }
+                                final ServerRequests serverRequests = new ServerRequests(MyGcmListenerService.this);
+                                serverRequests.found(number, found, data.getString("token"), null);
                             }
                         }
                     }).run();

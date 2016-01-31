@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                         search.toggleSearch();
                         MyGcmListenerService.setResultsListener(null);
                     }
-                }, 30 * 1000);
+                }, 20 * 1000);
                 if(!isSearchResultsMode) {
                     viewSwitcher.showNext();
                     isSearchResultsMode = true;
