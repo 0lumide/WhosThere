@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                                     ContactsManager.getOwnPhoneNumber(MainActivity.this),
                                     ContactsManager.getAllContacts(MainActivity.this), null);
                         }else{
+                            Log.v("oaf", "! is Name");
                             serverRequests.findName(ContactsManager.getOwnPhoneNumber(MainActivity.this),
                                     searchTerm, ContactsManager.getAllContacts(MainActivity.this), null);
                         }
@@ -152,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         search.toggleSearch();
                         MyGcmListenerService.setResultsListener(null);
                     }
-                }, 20 * 1000);
+                }, 10 * 1000);
                 if(!isSearchResultsMode) {
                     viewSwitcher.showNext();
                     isSearchResultsMode = true;

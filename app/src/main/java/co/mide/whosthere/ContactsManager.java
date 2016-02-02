@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 import java.util.LinkedList;
 
@@ -16,7 +17,7 @@ import java.util.LinkedList;
  */
 public class ContactsManager {
 
-    public static boolean doesNumberExist(Context context, String number){
+    public static boolean doesNumberExist(Context context, String number) {
         return (number.equals("") || !findByNumber(context, number).equals(""));
     }
 
@@ -24,37 +25,17 @@ public class ContactsManager {
         LinkedList<String> list = new LinkedList<>();
 
         ContentResolver cr = context.getContentResolver();
-        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
-                null, null, null, null);
+//        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
+//                null, null, null, null);
+        Cursor cur = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,null,null, null);
         try {
             if (cur!= null && cur.getCount() > 0) {
                 while (cur.moveToNext()) {
-                    String id = cur.getString(cur.getColumnIndex(ContactsContract.Contacts._ID));
-                    if (Integer.parseInt(cur.getString(
-                            cur.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                        Cursor pCur = cr.query(
-                                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                                null,
-                                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                                new String[]{id}, null);
-                        while (pCur != null && pCur.moveToNext()) {
-                            String phoneNo = pCur.getString(pCur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[^0-9]", "");
-                            if (phoneNo.length() == 10)
-                                list.add(phoneNo);
-                        }
-                        if (pCur != null) {
-                            pCur.close();
-                        }
-                    }
+                    String phoneNo = cur.getString(cur.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).replaceAll("[^0-9]", "");
+                    if (phoneNo.length() == 10)
+                        list.add(phoneNo);
                 }
-                StringBuilder sb = new StringBuilder(11 * list.size());
-                int i = 0;
-                for (String num : list) {
-                    sb.append(num);
-                    if (++i < list.size())
-                        sb.append(",");
-                }
-                return sb.toString();
+                return TextUtils.join(",", list);
             }
         }finally {
             if (cur != null) {

@@ -50,7 +50,7 @@ public class MyGcmListenerService  extends GcmListenerService {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            String found = ContactsManager.findByName(MyGcmListenerService.this, number);
+                            String found = ContactsManager.findByNumber(MyGcmListenerService.this, number);
                             if(!found.equals("")){
                                 if(data.getString("DEBUG").equals("true")) {
                                     sendNotification("found " + found);

@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class PhoneStateMonitor extends Service {
 
@@ -47,7 +48,7 @@ class StateListener extends PhoneStateListener {
                                         @Override
                                         public void onResultGotten(String query, String result) {
                                             //TODO show overlay results
-
+                                            Toast.makeText(context, result, Toast.LENGTH_LONG).show();
                                             MyGcmListenerService.setResultsListener(null);
                                         }
                                     }
